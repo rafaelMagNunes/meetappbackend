@@ -1,12 +1,14 @@
+require('dotenv/config');
+
 export default {
-  host: 'smtp.mailtrap.io',
-  port: '2525',
-  secure: false,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   auth: {
-    user: '2c62990ac7e06e',
-    pass: 'b6bdac03334214',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
+  secure: false,
   default: {
-    from: 'Equipe GoBarber <noreply@gobarber.com>',
+    from: 'Equipe MedSpace <noreply@medspace.com.br>',
   },
 };

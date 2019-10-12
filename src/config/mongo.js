@@ -1,5 +1,7 @@
+require('dotenv/config');
+
 export default {
-  host: '192.168.99.100',
-  port: 27017,
-  database: 'meetapp',
+  host: process.env.MONGO_HOST,
+  port: process.env.MONGO_PORT,
+  database: process.env.MONGO_NAME,
 };

@@ -7,7 +7,9 @@ import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 
 import './database';
+
 import sentryConfig from './config/sentry';
+
 import routes from './routes';
 
 class App {
@@ -38,9 +40,13 @@ class App {
 
   exceptionHandler() {
     this.server.use(async (err, req, res, next) => {
-      const errors = await new Youch(err, req).toJSON();
+      if (process.env.NODE_ENV === 'development') {
+        const errors = await new Youch(err, req).toJSON();
 
-      return res.status(500).json(errors);
+        return res.status(500).json(errors);
+      }
+
+      return res.status(500).json({ error: 'Internal server error' });
     });
   }
 }
