@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import Brute from 'express-brute';
+import BruteRedis from 'express-brute-redis';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
@@ -13,22 +15,41 @@ import MeetupController from './app/controllers/MeetupController';
 import OrganizingController from './app/controllers/OrganizingController';
 import SubscriptionController from './app/controllers/SubscriptionController';
 
+// Validators
+import validateUserStore from './app/validators/UserStore';
+import validateUserUpdate from './app/validators/UserUpdate';
+import validateSessionStore from './app/validators/SessionStore';
+import validateMeetupStore from './app/validators/MeetupStore';
+import validateMeetupUpdate from './app/validators/MeetupUpdate';
+
 const routes = new Router();
 
 const upload = multer(multerConfig);
 
-routes.post('/users', UserController.store);
-routes.post('/sessions', SessionController.store);
+const bruteStore = new BruteRedis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+});
+
+const bruteForce = new Brute(bruteStore);
+
+routes.post('/users', validateUserStore, UserController.store);
+routes.post(
+  '/sessions',
+  bruteForce.prevent,
+  validateSessionStore,
+  SessionController.store
+);
 
 routes.use(authMiddleware);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
-routes.put('/users', UserController.update);
+routes.put('/users', validateUserUpdate, UserController.update);
 
 routes.get('/meetups', MeetupController.index);
-routes.post('/meetups', MeetupController.store);
-routes.put('/meetups/:id', MeetupController.update);
+routes.post('/meetups', validateMeetupStore, MeetupController.store);
+routes.put('/meetups/:id', validateMeetupUpdate, MeetupController.update);
 routes.delete('/meetups/:id', MeetupController.delete);
 
 routes.get('/organizing', OrganizingController.index);
