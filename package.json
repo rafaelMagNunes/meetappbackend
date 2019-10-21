@@ -11,6 +11,7 @@
     "@sentry/node": "5.6.2",
     "bcryptjs": "^2.4.3",
     "bee-queue": "^1.2.2",
+    "cors": "^2.8.5",
     "date-fns": "^2.0.0-alpha.34",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
@@ -18,6 +19,11 @@
     "express-brute": "^1.0.1",
     "express-brute-redis": "^0.0.1",
     "express-handlebars": "^3.1.0",
+<<<<<<< HEAD
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.21.1",
+=======
+>>>>>>> 24fd3e04200558db87aa3fe74ae6ede716abbdc7
     "ioredis": "^4.14.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.0",
@@ -26,6 +32,8 @@
     "nodemailer-express-handlebars": "^3.0.0",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.3",
+    "rate-limit-redis": "^1.6.0",
+    "redis": "^2.8.0",
     "sequelize": "^5.8.7",
     "youch": "^2.0.10",
     "yup": "^0.27.0"

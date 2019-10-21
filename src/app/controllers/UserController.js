@@ -21,18 +21,27 @@ class UserController {
   async update(req, res) {
     const { email, old_password } = req.body;
 
+<<<<<<< HEAD
+    const user = await UpdateUserService.run({
+=======
     const { id, name, userEmail } = await UpdateUserService.run({
+>>>>>>> 24fd3e04200558db87aa3fe74ae6ede716abbdc7
       body: req.body,
       user_id: req.userId,
       email,
       old_password,
+<<<<<<< HEAD
+=======
     });
 
     return res.json({
       id,
       name,
       email: userEmail,
+>>>>>>> 24fd3e04200558db87aa3fe74ae6ede716abbdc7
     });
+
+    return res.json(user);
   }
 }
 

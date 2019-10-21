@@ -75,8 +75,22 @@ class MeetupController {
       user_id,
       meetup_id: req.params.id,
     });
+<<<<<<< HEAD
 
     return res.send();
+  }
+
+  async findById(req, res) {
+    const meetups = await Meetup.findOne({
+      where: { id: req.params.id, user_id: req.userId },
+      include: [User],
+    });
+
+    console.log(req.params.id);
+=======
+>>>>>>> 24fd3e04200558db87aa3fe74ae6ede716abbdc7
+
+    return res.json(meetups);
   }
 }
 

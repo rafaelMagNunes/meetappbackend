@@ -34,12 +34,16 @@ const bruteStore = new BruteRedis({
 const bruteForce = new Brute(bruteStore);
 
 routes.post('/users', validateUserStore, UserController.store);
+<<<<<<< HEAD
+routes.post('/sessions', validateSessionStore, SessionController.store);
+=======
 routes.post(
   '/sessions',
   bruteForce.prevent,
   validateSessionStore,
   SessionController.store
 );
+>>>>>>> 24fd3e04200558db87aa3fe74ae6ede716abbdc7
 
 routes.use(authMiddleware);
 
@@ -51,6 +55,7 @@ routes.get('/meetups', MeetupController.index);
 routes.post('/meetups', validateMeetupStore, MeetupController.store);
 routes.put('/meetups/:id', validateMeetupUpdate, MeetupController.update);
 routes.delete('/meetups/:id', MeetupController.delete);
+routes.get('/meetupsbyid/:id', MeetupController.findById);
 
 routes.get('/organizing', OrganizingController.index);
 routes.get('/subscriptions', SubscriptionController.index);
